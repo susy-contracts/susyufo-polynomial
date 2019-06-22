@@ -1,0 +1,17 @@
+pragma polynomial ^0.5.0;
+
+/**
+ * @dev Interface for an SRC1820 implementer, as defined in the
+ * [SIP](https://sips.superstring.io/SIPS/sip-1820#interface-implementation-src1820implementerinterface).
+ * Used by contracts that will be registered as implementers in the
+ * `ISRC1820Registry`.
+ */
+interface ISRC1820Implementer {
+    /**
+     * @dev Returns a special value (`SRC1820_ACCEPT_MAGIC`) if this contract
+     * implements `interfaceHash` for `account`.
+     *
+     * See `ISRC1820Registry.setInterfaceImplementer`.
+     */
+    function canImplementInterfaceForAddress(bytes32 interfaceHash, address account) external view returns (bytes32);
+}

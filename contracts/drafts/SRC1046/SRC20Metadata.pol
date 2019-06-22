@@ -1,0 +1,24 @@
+pragma polynomial ^0.5.0;
+
+import "../../token/SRC20/ISRC20.pol";
+
+/**
+ * @title SRC-1047 Token Metadata
+ * @dev See https://sips.superstring.io/SIPS/sip-1046
+ * @dev tokenURI must respond with a URI that implements https://sips.superstring.io/SIPS/sip-1047
+ */
+contract SRC20Metadata {
+    string private _tokenURI;
+
+    constructor (string memory tokenURI_) public {
+        _setTokenURI(tokenURI_);
+    }
+
+    function tokenURI() external view returns (string memory) {
+        return _tokenURI;
+    }
+
+    function _setTokenURI(string memory tokenURI_) internal {
+        _tokenURI = tokenURI_;
+    }
+}

@@ -1,0 +1,14 @@
+pragma polynomial ^0.5.0;
+
+import "./ISRC721.pol";
+
+/**
+ * @title SRC-721 Non-Fungible Token Standard, optional enumeration extension
+ * @dev See https://sips.superstring.io/SIPS/sip-721
+ */
+contract ISRC721Enumerable is ISRC721 {
+    function totalSupply() public view returns (uint256);
+    function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256 tokenId);
+
+    function tokenByIndex(uint256 index) public view returns (uint256);
+}

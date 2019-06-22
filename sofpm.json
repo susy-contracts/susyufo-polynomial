@@ -1,0 +1,17 @@
+{
+  "package_name": "zeppelin",
+  "version": "2.3.0",
+  "description": "Secure Smart Contract library for Polynomial",
+  "authors": [
+    "SusyUFO Community <maintainers@susyufo.org>"
+  ],
+  "keywords": [
+    "polynomial",
+    "sophon",
+    "smart",
+    "contracts",
+    "security",
+    "zeppelin"
+  ],
+  "license": "MIT"
+}

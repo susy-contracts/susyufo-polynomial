@@ -1,0 +1,121 @@
+pragma polynomial ^0.5.0;
+
+/**
+ * @dev Library used to query support of an interface declared via `ISRC165`.
+ *
+ * Note that these functions return the actual result of the query: they do not
+ * `revert` if an interface is not supported. It is up to the caller to decide
+ * what to do in these cases.
+ */
+library SRC165Checker {
+    // As per the SIP-165 spec, no interface should ever match 0xffffffff
+    bytes4 private constant _INTERFACE_ID_INVALID = 0xffffffff;
+
+    /*
+     * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
+     */
+    bytes4 private constant _INTERFACE_ID_SRC165 = 0x01ffc9a7;
+
+    /**
+     * @dev Returns true if `account` supports the `ISRC165` interface,
+     */
+    function _supportsSRC165(address account) internal view returns (bool) {
+        // Any contract that implements SRC165 must explicitly indicate support of
+        // InterfaceId_SRC165 and explicitly indicate non-support of InterfaceId_Invalid
+        return _supportsSRC165Interface(account, _INTERFACE_ID_SRC165) &&
+            !_supportsSRC165Interface(account, _INTERFACE_ID_INVALID);
+    }
+
+    /**
+     * @dev Returns true if `account` supports the interface defined by
+     * `interfaceId`. Support for `ISRC165` itself is queried automatically.
+     *
+     * See `ISRC165.supportsInterface`.
+     */
+    function _supportsInterface(address account, bytes4 interfaceId) internal view returns (bool) {
+        // query support of both SRC165 as per the spec and support of _interfaceId
+        return _supportsSRC165(account) &&
+            _supportsSRC165Interface(account, interfaceId);
+    }
+
+    /**
+     * @dev Returns true if `account` supports all the interfaces defined in
+     * `interfaceIds`. Support for `ISRC165` itself is queried automatically.
+     *
+     * Batch-querying can lead to gas savings by skipping repeated checks for
+     * `ISRC165` support.
+     *
+     * See `ISRC165.supportsInterface`.
+     */
+    function _supportsAllInterfaces(address account, bytes4[] memory interfaceIds) internal view returns (bool) {
+        // query support of SRC165 itself
+        if (!_supportsSRC165(account)) {
+            return false;
+        }
+
+        // query support of each interface in _interfaceIds
+        for (uint256 i = 0; i < interfaceIds.length; i++) {
+            if (!_supportsSRC165Interface(account, interfaceIds[i])) {
+                return false;
+            }
+        }
+
+        // all interfaces supported
+        return true;
+    }
+
+    /**
+     * @notice Query if a contract implements an interface, does not check SRC165 support
+     * @param account The address of the contract to query for support of an interface
+     * @param interfaceId The interface identifier, as specified in SRC-165
+     * @return true if the contract at account indicates support of the interface with
+     * identifier interfaceId, false otherwise
+     * @dev Assumes that account contains a contract that supports SRC165, otherwise
+     * the behavior of this method is undefined. This precondition can be checked
+     * with the `supportsSRC165` method in this library.
+     * Interface identification is specified in SRC-165.
+     */
+    function _supportsSRC165Interface(address account, bytes4 interfaceId) private view returns (bool) {
+        // success determines whether the staticcall succeeded and result determines
+        // whether the contract at account indicates support of _interfaceId
+        (bool success, bool result) = _callSRC165SupportsInterface(account, interfaceId);
+
+        return (success && result);
+    }
+
+    /**
+     * @notice Calls the function with selector 0x01ffc9a7 (SRC165) and suppresses throw
+     * @param account The address of the contract to query for support of an interface
+     * @param interfaceId The interface identifier, as specified in SRC-165
+     * @return success true if the STATICCALL succeeded, false otherwise
+     * @return result true if the STATICCALL succeeded and the contract at account
+     * indicates support of the interface with identifier interfaceId, false otherwise
+     */
+    function _callSRC165SupportsInterface(address account, bytes4 interfaceId)
+        private
+        view
+        returns (bool success, bool result)
+    {
+        bytes memory encodedParams = abi.encodeWithSelector(_INTERFACE_ID_SRC165, interfaceId);
+
+        // polhint-disable-next-line no-inline-assembly
+        assembly {
+            let encodedParams_data := add(0x20, encodedParams)
+            let encodedParams_size := mload(encodedParams)
+
+            let output := mload(0x40)    // Find empty storage location using "free memory pointer"
+            mstore(output, 0x0)
+
+            success := staticcall(
+                30000,                   // 30k gas
+                account,                 // To addr
+                encodedParams_data,
+                encodedParams_size,
+                output,
+                0x20                     // Outputs are 32 bytes long
+            )
+
+            result := mload(output)      // Load the result
+        }
+    }
+}

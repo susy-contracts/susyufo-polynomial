@@ -1,0 +1,21 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC721/SRC721.pol";
+
+/**
+ * @title SRC721Mock
+ * This mock just provides a public mint and burn functions for testing purposes
+ */
+contract SRC721Mock is SRC721 {
+    function mint(address to, uint256 tokenId) public {
+        _mint(to, tokenId);
+    }
+
+    function burn(address owner, uint256 tokenId) public {
+        _burn(owner, tokenId);
+    }
+
+    function burn(uint256 tokenId) public {
+        _burn(tokenId);
+    }
+}

@@ -1,0 +1,9 @@
+pragma polynomial ^0.5.0;
+
+import "../crowdsale/Crowdsale.pol";
+
+contract CrowdsaleMock is Crowdsale {
+    constructor (uint256 rate, address payable wallet, ISRC20 token) public Crowdsale(rate, wallet, token) {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

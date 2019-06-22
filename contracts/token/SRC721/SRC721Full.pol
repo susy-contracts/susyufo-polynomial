@@ -1,0 +1,17 @@
+pragma polynomial ^0.5.0;
+
+import "./SRC721.pol";
+import "./SRC721Enumerable.pol";
+import "./SRC721Metadata.pol";
+
+/**
+ * @title Full SRC721 Token
+ * This implementation includes all the required and some optional functionality of the SRC721 standard
+ * Moreover, it includes approve all functionality using operator terminology
+ * @dev see https://sips.superstring.io/SIPS/sip-721
+ */
+contract SRC721Full is SRC721, SRC721Enumerable, SRC721Metadata {
+    constructor (string memory name, string memory symbol) public SRC721Metadata(name, symbol) {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

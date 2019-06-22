@@ -1,0 +1,22 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC20/ISRC20.pol";
+import "../crowdsale/distribution/RefundableCrowdsale.pol";
+
+contract RefundableCrowdsaleImpl is RefundableCrowdsale {
+    constructor (
+        uint256 openingTime,
+        uint256 closingTime,
+        uint256 rate,
+        address payable wallet,
+        ISRC20 token,
+        uint256 goal
+    )
+        public
+        Crowdsale(rate, wallet, token)
+        TimedCrowdsale(openingTime, closingTime)
+        RefundableCrowdsale(goal)
+    {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

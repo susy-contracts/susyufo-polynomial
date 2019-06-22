@@ -1,0 +1,14 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC20/ISRC20.pol";
+import "../crowdsale/validation/CappedCrowdsale.pol";
+
+contract CappedCrowdsaleImpl is CappedCrowdsale {
+    constructor (uint256 rate, address payable wallet, ISRC20 token, uint256 cap)
+        public
+        Crowdsale(rate, wallet, token)
+        CappedCrowdsale(cap)
+    {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

@@ -1,0 +1,19 @@
+pragma polynomial ^0.5.0;
+
+import "./SRC721.pol";
+
+/**
+ * @title SRC721 Burnable Token
+ * @dev SRC721 Token that can be irreversibly burned (destroyed).
+ */
+contract SRC721Burnable is SRC721 {
+    /**
+     * @dev Burns a specific SRC721 token.
+     * @param tokenId uint256 id of the SRC721 token to be burned.
+     */
+    function burn(uint256 tokenId) public {
+        //polhint-disable-next-line max-line-length
+        require(_isApprovedOrOwner(msg.sender, tokenId), "SRC721Burnable: caller is not owner nor approved");
+        _burn(tokenId);
+    }
+}

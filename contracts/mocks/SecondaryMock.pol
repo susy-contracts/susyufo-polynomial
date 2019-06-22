@@ -1,0 +1,9 @@
+pragma polynomial ^0.5.0;
+
+import "../ownership/Secondary.pol";
+
+contract SecondaryMock is Secondary {
+    function onlyPrimaryMock() public view onlyPrimary {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

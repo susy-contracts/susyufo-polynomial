@@ -1,0 +1,13 @@
+pragma polynomial ^0.5.0;
+
+import "./ISRC721.pol";
+import "./ISRC721Enumerable.pol";
+import "./ISRC721Metadata.pol";
+
+/**
+ * @title SRC-721 Non-Fungible Token Standard, full implementation interface
+ * @dev See https://sips.superstring.io/SIPS/sip-721
+ */
+contract ISRC721Full is ISRC721, ISRC721Enumerable, ISRC721Metadata {
+    // polhint-disable-previous-line no-empty-blocks
+}

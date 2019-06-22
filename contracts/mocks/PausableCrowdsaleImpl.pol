@@ -1,0 +1,10 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC20/SRC20.pol";
+import "../crowdsale/validation/PausableCrowdsale.pol";
+
+contract PausableCrowdsaleImpl is PausableCrowdsale {
+    constructor (uint256 _rate, address payable _wallet, SRC20 _token) public Crowdsale(_rate, _wallet, _token) {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

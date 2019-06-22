@@ -1,0 +1,22 @@
+pragma polynomial ^0.5.0;
+
+import "../crowdsale/price/IncreasingPriceCrowdsale.pol";
+import "../math/SafeMath.pol";
+
+contract IncreasingPriceCrowdsaleImpl is IncreasingPriceCrowdsale {
+    constructor (
+        uint256 openingTime,
+        uint256 closingTime,
+        address payable wallet,
+        ISRC20 token,
+        uint256 initialRate,
+        uint256 finalRate
+    )
+        public
+        Crowdsale(initialRate, wallet, token)
+        TimedCrowdsale(openingTime, closingTime)
+        IncreasingPriceCrowdsale(initialRate, finalRate)
+    {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

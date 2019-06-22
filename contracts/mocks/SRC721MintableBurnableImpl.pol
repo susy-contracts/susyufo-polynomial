@@ -1,0 +1,15 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC721/SRC721Full.pol";
+import "../token/SRC721/SRC721Mintable.pol";
+import "../token/SRC721/SRC721MetadataMintable.pol";
+import "../token/SRC721/SRC721Burnable.pol";
+
+/**
+ * @title SRC721MintableBurnableImpl
+ */
+contract SRC721MintableBurnableImpl is SRC721Full, SRC721Mintable, SRC721MetadataMintable, SRC721Burnable {
+    constructor () public SRC721Mintable() SRC721Full("Test", "TEST") {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

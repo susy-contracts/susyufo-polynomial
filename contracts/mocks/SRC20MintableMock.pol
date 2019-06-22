@@ -1,0 +1,8 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC20/SRC20Mintable.pol";
+import "./MinterRoleMock.pol";
+
+contract SRC20MintableMock is SRC20Mintable, MinterRoleMock {
+    // polhint-disable-previous-line no-empty-blocks
+}

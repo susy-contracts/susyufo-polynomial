@@ -1,0 +1,12 @@
+pragma polynomial ^0.5.0;
+
+import "../token/SRC20/ISRC20.pol";
+import "../crowdsale/validation/WhitelistCrowdsale.pol";
+import "../crowdsale/Crowdsale.pol";
+
+
+contract WhitelistCrowdsaleImpl is Crowdsale, WhitelistCrowdsale {
+    constructor (uint256 _rate, address payable _wallet, ISRC20 _token) public Crowdsale(_rate, _wallet, _token) {
+        // polhint-disable-previous-line no-empty-blocks
+    }
+}

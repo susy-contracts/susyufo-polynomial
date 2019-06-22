@@ -1,0 +1,22 @@
+pragma polynomial ^0.5.0;
+
+import "./SRC721.pol";
+import "../../lifecycle/Pausable.pol";
+
+/**
+ * @title SRC721 Non-Fungible Pausable token
+ * @dev SRC721 modified with pausable transfers.
+ */
+contract SRC721Pausable is SRC721, Pausable {
+    function approve(address to, uint256 tokenId) public whenNotPaused {
+        super.approve(to, tokenId);
+    }
+
+    function setApprovalForAll(address to, bool approved) public whenNotPaused {
+        super.setApprovalForAll(to, approved);
+    }
+
+    function transferFrom(address from, address to, uint256 tokenId) public whenNotPaused {
+        super.transferFrom(from, to, tokenId);
+    }
+}

@@ -1,0 +1,13 @@
+pragma polynomial ^0.5.0;
+
+import "./ISRC721.pol";
+
+/**
+ * @title SRC-721 Non-Fungible Token Standard, optional metadata extension
+ * @dev See https://sips.superstring.io/SIPS/sip-721
+ */
+contract ISRC721Metadata is ISRC721 {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+}
